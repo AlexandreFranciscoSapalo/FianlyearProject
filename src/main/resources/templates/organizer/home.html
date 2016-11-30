@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:include="fragments/head :: head(title='Create Account')">
+
+          
+</head>
+
+<link href="/css/organizer/organizer.css"
+          rel="stylesheet" 
+          media="screen"/>
+          
+          
+<link href="/css/organizer/organizer_home.css"
+          rel="stylesheet" 
+          media="screen"/>
+          
+<body>
+	<div class="container-fluid">
+	<nav th:replace="fragments/head :: header">
+			
+	</nav>
+<div class="row main-body">
+    <div class="col-md-3" style="background-color:white;">
+        
+        <ul class="nav nav-pills nav-stacked ">
+            <li class="active">
+                <a href="#mail-inbox.html">
+                    <i class="fa fa-calendar-o"></i> Events Management 
+                </a>
+            </li>
+            <li>
+                <a href="#mail-compose.html"><i class="fa fa-group"></i> Groups Managements  </a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-weixin"></i> Messaging </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-bullhorn"></i> Notifications <span class="label label-danger pull-right inbox-notification">35</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="#">
+                    <i class="fa fa-bullhorn"></i> Account settings <span class="label label-danger pull-right inbox-notification">35</span>
+                </a>
+            </li>
+            
+        </ul><!-- /.nav -->
+
+<!--         <h5 class="nav-email-subtitle">More</h5> -->
+<!--         <ul class="nav nav-pills nav-stacked"> -->
+<!--             <li> -->
+<!--                 <a href="#"> -->
+<!--                     <i class="fa fa-folder-open"></i> Promotions  <span class="label label-danger pull-right">3</span> -->
+<!--                 </a> -->
+<!--             </li> -->
+<!--             <li> -->
+<!--                 <a href="#"> -->
+<!--                     <i class="fa fa-folder-open"></i> Job list -->
+<!--                 </a> -->
+<!--             </li> -->
+<!--             <li> -->
+<!--                 <a href="#"> -->
+<!--                     <i class="fa fa-folder-open"></i> Backup -->
+<!--                 </a> -->
+<!--             </li> -->
+<!--         </ul>/.nav -->
+    </div>
+    <div class="col-md-9 ">
+    <div class="page-header sub-menu-breadcrumb">
+			<ol class="breadcrumb">
+				<li class="active">Events</li>
+			</ol>
+		</div>
+    
+     `<div class="row">
+        <div class="col-md-4 ">
+        
+            <a href="/organizer/add-event" class="btn btn-sq-lg btn-info sub-menu">
+            <i class="fa fa-calendar-plus-o fa-3x"></i><br/>
+                Add New Event
+            </a>
+        </div>
+        <div class="col-md-4 ">
+            <a href="#" class="btn btn-sq-lg btn-info sub-menu">
+            <i class="fa fa-eye fa-3x"></i><br/>
+                View Events
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="#" class="btn btn-sq-lg btn-info sub-menu">
+            <i class="fa fa-pencil-square-o fa-3x"></i><br/>
+                Edit Events 
+            </a>
+        </div>
+        
+        <div class="col-md-4">
+            <a href="#" class="btn btn-sq-lg btn-info sub-menu">
+            <i class="fa fa-calendar-times-o fa-3x"></i><br/>
+                Cancel Events 
+            </a>
+        </div>
+	</div>   
+        
+     </div>
+        <!-- resume -->
+
+    </div>
+</div>
+
+
+</body>
+
+</html>
+

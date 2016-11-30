@@ -1,0 +1,35 @@
+ body {
+     margin: 0;
+     background: url("/images/bg.png") repeat;
+ } 
+.container-fluid {
+    padding-right:0;
+    padding-left:0;
+    margin-right:auto;
+    margin-left:auto
+ }
+ 
+ * {
+  -webkit-border-radius: 0 !important;
+     -moz-border-radius: 0 !important;
+          border-radius: 0 !important;
+}
+
+.navbar {
+    margin-bottom: 0;
+}
+
+.nav>li>a {
+    font-size:22px;
+    margin-left:18px;
+}
+
+.logo{
+    margin-top:-16px;
+    margin-left:15px;
+}
+
+.navbar-toggle .icon-bar {
+    margin-right:10px;
+}
+

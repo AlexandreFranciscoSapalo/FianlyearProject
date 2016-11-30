@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:include="fragments/head :: head(title='New Event')">
+
+
+</head>
+<link href="/css/organizer/organizer.css" rel="stylesheet"
+	media="screen" />
+
+<link href="/css/organizer/organizer_new.css" rel="stylesheet"
+	media="screen" />
+
+
+<body>
+	<div class="container-fluid">
+		<nav th:replace="fragments/head :: header"></nav>
+		<div class="row main-body">
+			<div class="col-md-3" style="background-color: white;">
+
+				<ul class="nav nav-pills nav-stacked ">
+					<li class="active"><a href="#mail-inbox.html"> <i
+							class="fa fa-calendar-o"></i> Events Management
+					</a></li>
+					<li><a href="#mail-compose.html"><i class="fa fa-group"></i>
+							Groups Managements </a></li>
+					<li><a href="#"><i class="fa fa-weixin"></i> Messaging </a></li>
+					<li><a href="#"> <i class="fa fa-bullhorn"></i>
+							Notifications <span
+							class="label label-danger pull-right inbox-notification">35</span>
+					</a></li>
+
+					<li><a href="#"> <i class="fa fa-bullhorn"></i> Account
+							settings <span
+							class="label label-danger pull-right inbox-notification">35</span>
+					</a></li>
+
+				</ul>
+			</div>
+			<div class="col-md-9 ">
+				<div class="page-header sub-menu-breadcrumb">
+					<ol class="breadcrumb">
+						<li><a href="/organizer/home">Events</a></li>
+						<li class="active">New Event</li>
+					</ol>
+				</div>
+			</div>
+			<div class="panel panel-default col-md-9">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<strong>Event details</strong>
+					</h3>
+
+				</div>
+
+				<div class="panel-body">
+					<form role="form" th:object="${eventCreateAndUpdateCommand}"
+						th:action="@{add-event}" method="post">
+
+						<input type="hidden" th:field="*{id}" />
+
+
+						<div class="row">
+							<div class="col-xs-12 col-sm-8">
+								<div class="form-group"
+									th:class="${#fields.hasErrors('name')} ? 'form-group has-error' : 'form-group'">
+									<label class="col-sm-12 control-label">Event name *</label> <input
+										type="text" name="name" id="name" class="form-control "
+										placeholder="" tabindex="3" th:field="*{name}"
+										th:errorclass="has-error" /> <span class="help-block"
+										th:if="${#fields.hasErrors('name')}">
+										<ul>
+											<li th:each="err : ${#fields.errors('name')}"
+												th:text="${err}" />
+										</ul>
+									</span>
+								</div>
+							</div>
+
+
+							<div class="col-xs-12 col-sm-4">
+								<div class="form-group"
+									th:class="${#fields.hasErrors('speakers')} ? 'form-group has-error' : 'form-group'">
+									<label class="col-sm-12 control-label">Speaker (If
+										applicable) </label> <input type="text" name="speakers" id="speakers"
+										class="form-control " placeholder="" tabindex="3"
+										th:field="*{speakers}" th:errorclass="has-error" /> <span
+										class="help-block" th:if="${#fields.hasErrors('speakers')}">
+										<ul>
+											<li th:each="err : ${#fields.errors('speakers')}"
+												th:text="${err}" />
+										</ul>
+									</span>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="row">
+
+							<div class="col-xs-12 col-sm-4">
+
+								<div class="form-group"
+									th:class="${#fields.hasErrors('isOpen')} ? 'form-group has-error' : 'form-group'">
+									<label class="col-sm-12 control-label"> Who can attend
+										? * </label> <select class="form-control" name="isOpen" id="isOpen">
+										<option th:value="public" class="form-control">General
+											public</option>
+
+										<option th:value="Closed" class="form-control">Closed
+											event</option>
+									</select> <span class="help-block"
+										th:if="${#fields.hasErrors('isOpen')}">
+										<ul>
+											<li th:each="err : ${#fields.errors('isOpen')}"
+												th:text="${err}" />
+										</ul>
+									</span>
+								</div>
+							</div>
+
+
+							<div class="col-xs-12 col-sm-4">
+								<div class="form-group"
+									th:class="${#fields.hasErrors('type')} ? 'form-group has-error' : 'form-group'">
+									<label class="col-sm-12 control-label"> Event type * </label> <select
+										class="form-control" name="type" id="type">
+										<option
+											th:each="eType : ${T(com.eventSystem.domain.EventType).values()}"
+											th:value="${eType.name}" th:text="${eType.name}"
+											class="form-control"></option>
+									</select> <span class="help-block" th:if="${#fields.hasErrors('type')}">
+										<ul>
+											<li th:each="err : ${#fields.errors('type')}"
+												th:text="${err}" />
+										</ul>
+									</span>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-4">
+
+								<div class="form-group"
+									th:class="${#fields.hasErrors('topic')} ? 'form-group has-error' : 'form-group'">
+									<label class="col-sm-12 control-label"> Event topic * </label>
+									<select class="form-control" name="topic" id="topic">
+										<option
+											th:each="eTopic : ${T(com.eventSystem.domain.EventTopic).values()}"
+											th:value="${eTopic.name}" th:text="${eTopic.name}"
+											class="form-control"></option>
+									</select> <span class="help-block" th:if="${#fields.hasErrors('topic')}">
+										<ul>
+											<li th:each="err : ${#fields.errors('topic')}"
+												th:text="${err}" />
+										</ul>
+									</span>
+								</div>
+							</div>
+
+
+						</div>
+
+
+						<div class="row">
+							<div class="col-xs-12 col-sm-4 ">
+
+								<div class="form-group"
+									th:class="${#fields.hasErrors('isFree')} ? 'form-group has-error' : 'form-group'">
+									<label class="col-sm-12 control-label"> Is this event
+										free? * </label> <select class="form-control" name="isFree"
+										id="isFree">
+										<option th:value="YES" class="form-control">YES</option>
+										<option th:value="NO" class="form-control">NO</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-4 ">
+								<div class="form-group"
+									th:class="${#fields.hasErrors('cost')} ? 'form-group has-error' : 'form-group'">
+									<label class="col-sm-12 control-label">Cost (If
+										applicable)</label> <input type="text" name="cost" id="cost"
+										class="form-control " placeholder="" tabindex="3"
+										th:field="*{cost}" th:errorclass="has-error" /> <span
+										class="help-block" th:if="${#fields.hasErrors('cost')}">
+										<ul>
+											<li th:each="err : ${#fields.errors('cost')}"
+												th:text="${err}" />
+										</ul>
+									</span>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-4 ">
+								<div class="form-group"
+									th:class="${#fields.hasErrors('availableSpaces')} ? 'form-group has-error' : 'form-group'">
+									<label class="col-sm-12 control-label"> Available
+										spaces </label> <input type="text" name="availableSpaces"
+										id="availableSpaces" class="form-control " placeholder=""
+										tabindex="3" th:field="*{availableSpaces}"
+										th:errorclass="has-error" /> <span class="help-block"
+										th:if="${#fields.hasErrors('availableSpaces')}">
+										<ul>
+											<li th:each="err : ${#fields.errors('availableSpaces')}"
+												th:text="${err}" />
+										</ul>
+									</span>
+								</div>
+
+							</div>
+
+
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12 col-lg-4 ">
+								<div class="form-group"
+									th:class="${#fields.hasErrors('date')} ? 'form-group has-error' : 'form-group'">
+									<label class="col-sm-12 control-label"> Event date *
+										</label> <input type="date" min="2014-05-11"
+										max="2014-05-20" name="date" id="date" class="form-control "
+										placeholder="" tabindex="3" th:field="*{date}"
+										th:errorclass="has-error" /> <span class="help-block"
+										th:if="${#fields.hasErrors('date')}">
+										<ul>
+											<li th:each="err : ${#fields.errors('date')}"
+												th:text="${err}" />
+										</ul>
+									</span>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-lg-4 ">
+								<div class="form-group">
+									<label class="col-sm-12 control-label"> Start time *</label>
+									<div class="row">
+										<div class="col-lg-4">
+											<div
+												th:class="${#fields.hasErrors('startTimeHour')} ? 'form-group has-error' : 'form-group'">
+												<select class="form-control" name="startTimeHour"
+													id="startTimeHour" th:field="*{startTimeHour}">
+													<option th:value="01" class="form-control">01</option>
+													<option th:value="02" class="form-control">02</option>
+													<option th:value="03" class="form-control">03</option>
+													<option th:value="04" class="form-control">04</option>
+													<option th:value="05" class="form-control">05</option>
+													<option th:value="06" class="form-control">06</option>
+													<option th:value="07" class="form-control">07</option>
+													<option th:value="08" class="form-control">08</option>
+													<option th:value="09" class="form-control">09</option>
+													<option th:value="10" class="form-control">10</option>
+													<option th:value="11" class="form-control">11</option>
+													<option th:value="12" class="form-control">12</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-lg-4">
+											<div
+												th:class="${#fields.hasErrors('startTimeHour')} ? 'form-group has-error' : 'form-group'">
+												<select class="form-control" name="startTimeMinute"
+													id="startTimeMinute" th:field="*{startTimeMinute}">
+													<option th:value="00" class="form-control">00</option>
+													<option th:value="05" class="form-control">05</option>
+													<option th:value="10" class="form-control">10</option>
+													<option th:value="15" class="form-control">15</option>
+													<option th:value="20" class="form-control">20</option>
+													<option th:value="25" class="form-control">25</option>
+													<option th:value="30" class="form-control">30</option>
+													<option th:value="35" class="form-control">35</option>
+													<option th:value="40" class="form-control">40</option>
+													<option th:value="45" class="form-control">45</option>
+													<option th:value="50" class="form-control">50</option>
+													<option th:value="55" class="form-control">55</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-lg-4">
+											<div
+												th:class="${#fields.hasErrors('startTimeHour')} ? 'form-group has-error' : 'form-group'">
+												<select class="form-control" name="startTimeMeridiem"
+													id="startTimeMeridiem" th:field="*{startTimeMeridiem}">
+													<option th:value="AM" class="form-control">AM</option>
+													<option th:value="PM" class="form-control">PM</option>
+												</select>
+											</div>
+										</div>
+										
+									</div>
+									<div
+											th:class="${#fields.hasErrors('startTimeHour')} ? 'has-error' : ''">
+											<span class="help-block"
+												th:if="${#fields.hasErrors('startTimeHour')}">
+												<ul>
+													<li th:each="err : ${#fields.errors('startTimeHour')}"
+														th:text="${err}" />
+												</ul>
+											</span>
+										</div>
+								</div>
+
+							</div>
+							
+							
+							<div class="col-xs-12 col-lg-4 ">
+								<div class="form-group">
+									<label class="col-sm-12 control-label"> End time *</label>
+									<div class="row">
+										<div class="col-lg-4">
+											<div
+												th:class="${#fields.hasErrors('endTimeHour')} ? 'form-group has-error' : 'form-group'">
+												<select class="form-control" name="endTimeHour"
+													id="endTimeHour" th:field="*{endTimeHour}">
+													<option th:value="01" class="form-control">01</option>
+													<option th:value="02" class="form-control">02</option>
+													<option th:value="03" class="form-control">03</option>
+													<option th:value="04" class="form-control">04</option>
+													<option th:value="05" class="form-control">05</option>
+													<option th:value="06" class="form-control">06</option>
+													<option th:value="07" class="form-control">07</option>
+													<option th:value="08" class="form-control">08</option>
+													<option th:value="09" class="form-control">09</option>
+													<option th:value="10" class="form-control">10</option>
+													<option th:value="11" class="form-control">11</option>
+													<option th:value="12" class="form-control">12</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-lg-4">
+											<div
+												th:class="${#fields.hasErrors('endTimeHour')} ? 'form-group has-error' : 'form-group'">
+												<select class="form-control" name="endTimeMinute"
+													id="endTimeMinute" th:field="*{endTimeMinute}">
+													<option th:value="00" class="form-control">00</option>
+													<option th:value="05" class="form-control">05</option>
+													<option th:value="10" class="form-control">10</option>
+													<option th:value="15" class="form-control">15</option>
+													<option th:value="20" class="form-control">20</option>
+													<option th:value="25" class="form-control">25</option>
+													<option th:value="30" class="form-control">30</option>
+													<option th:value="35" class="form-control">35</option>
+													<option th:value="40" class="form-control">40</option>
+													<option th:value="45" class="form-control">45</option>
+													<option th:value="50" class="form-control">50</option>
+													<option th:value="55" class="form-control">55</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-lg-4">
+											<div
+												th:class="${#fields.hasErrors('endTimeHour')} ? 'form-group has-error' : 'form-group'">
+												<select class="form-control" name="endTimeMeridiem"
+													id="endTimeMeridiem" th:field="*{endTimeMeridiem}">
+													<option th:value="AM" class="form-control">AM</option>
+													<option th:value="PM" class="form-control">PM</option>
+												</select>
+											</div>
+										</div>
+										
+									</div>
+									<div
+											th:class="${#fields.hasErrors('endTimeHour')} ? 'has-error' : ''">
+											<span class="help-block"
+												th:if="${#fields.hasErrors('endTimeHour')}">
+												<ul>
+													<li th:each="err : ${#fields.errors('endTimeHour')}"
+														th:text="${err}" />
+												</ul>
+											</span>
+										</div>
+								</div>
+
+							</div>
+							
+
+						</div>
+
+
+						<div class="row">
+							<div class="col-xs-12 col-sm-12">
+								<div class="form-group"
+									th:class="${#fields.hasErrors('eventDescription')} ? 'form-group has-error' : 'form-group'">
+									<label class="col-sm-12 control-label">Event
+										description </label>
+									<textarea cols="100" name="eventDescription"
+										id="eventDescription" class="form-control " placeholder=""
+										tabindex="3" th:field="*{eventDescription}"
+										th:errorclass="has-error"></textarea>
+									<span class="help-block"
+										th:if="${#fields.hasErrors('eventDescription')}">
+										<ul>
+											<li th:each="err : ${#fields.errors('eventDescription')}"
+												th:text="${err}" />
+										</ul>
+									</span>
+								</div>
+							</div>
+
+						</div>
+
+
+						<div class="row">
+							<div class="col-xs-12 col-md-4">
+								<div class="form-group"
+									th:class="${#fields.hasErrors('addressLine1')} ? 'form-group has-error' : 'form-group'">
+									<label class="col-sm-12 control-label">Address Line 1 *</label>
+									<input type="text" name="addressLine1" id="addressLine1"
+										class="form-control " placeholder="" tabindex="3"
+										th:field="*{addressLine1}" th:errorclass="has-error" /> <span
+										class="help-block"
+										th:if="${#fields.hasErrors('addressLine1')}">
+										<ul>
+											<li th:each="err : ${#fields.errors('addressLine1')}"
+												th:text="${err}" />
+										</ul>
+									</span>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-md-4">
+								<div class="form-group"
+									th:class="${#fields.hasErrors('addressLine2')} ? 'form-group has-error' : 'form-group'">
+									<label class="col-sm-12 control-label">Address Line 2</label> <input
+										type="text" name="addressLine2" id="addressLine2"
+										class="form-control " placeholder="" tabindex="3"
+										th:field="*{addressLine2}" th:errorclass="has-error" /> <span
+										class="help-block"
+										th:if="${#fields.hasErrors('addressLine2')}">
+										<ul>
+											<li th:each="err : ${#fields.errors('addressLine2')}"
+												th:text="${err}" />
+										</ul>
+									</span>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-md-2">
+								<div class="form-group"
+									th:class="${#fields.hasErrors('city')} ? 'form-group has-error' : 'form-group'">
+									<label class="col-sm-12 control-label">City *</label> <input
+										type="text" name="city" id="city" class="form-control "
+										placeholder="" tabindex="3" th:field="*{city}"
+										th:errorclass="has-error" /> <span class="help-block"
+										th:if="${#fields.hasErrors('city')}">
+										<ul>
+											<li th:each="err : ${#fields.errors('city')}"
+												th:text="${err}" />
+										</ul>
+									</span>
+								</div>
+							</div>
+
+
+							<div class="col-xs-12 col-md-2">
+								<div class="form-group"
+									th:class="${#fields.hasErrors('postCode')} ? 'form-group has-error' : 'form-group'">
+									<label class="col-sm-12 control-label">Postcode *</label> <input
+										type="text" name="postCode" id="postCode"
+										class="form-control " placeholder="" tabindex="3"
+										th:field="*{postCode}" th:errorclass="has-error" /> <span
+										class="help-block" th:if="${#fields.hasErrors('postCode')}">
+										<ul>
+											<li th:each="err : ${#fields.errors('postCode')}"
+												th:text="${err}" />
+										</ul>
+									</span>
+								</div>
+							</div>
+
+						</div>
+	
+
+						<br />
+						<button type="submit" class="btn btn-success">Submit
+							Event</button>
+
+
+						<hr style="margin-top: 10px; margin-bottom: 10px;" />
+
+					</form>
+				</div>
+
+
+
+			</div>
+			<!-- resume -->
+
+		</div>
+	</div>
+
+
+</body>
+
+</html>
+

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/head :: head(title='Create Account')">
+
+</head>
+<body>
+	<div class="container-fluid">
+
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+						aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#"><img class="logo"
+						th:src="@{/images/uollogo.png}" src="../static/images/uollogo.png" /></a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<!-- <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#" data-toggle="modal"
+							data-target="#login-modal" id="loginB" class="btn btn-info">Log
+								in</a></li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid -->
+		</nav>
+
+		<div class="page-header">
+			<ol class="breadcrumb">
+				<li><a href="/">Home</a></li>
+				<li class="active">Create account</li>
+			</ol>
+		</div>
+
+
+
+		<div class="container" style="margin-top: 30px">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<strong>Create an account</strong>
+						</h3>
+
+					</div>
+
+					<div class="panel-body">
+						<form role="form" th:object="${userCreateCommand}"
+							th:action="@{/create-account}" method="post">
+							<!-- 							<div class="row"> -->
+							<!-- 								<div class="col-xs-12 col-sm-4 col-md-4"> -->
+							<!-- 									<div class="form-group"> -->
+							<!-- 										<input type="text" name="first_name" id="first_name" -->
+							<!-- 											class="form-control" placeholder="First Name" tabindex="1" /> -->
+							<!-- 									</div> -->
+							<!-- 								</div> -->
+							<!-- 								<div class="col-xs-12 col-sm-4 col-md-4"> -->
+							<!-- 									<div class="form-group"> -->
+							<!-- 										<input type="text" name="middle_name" id="middle_name" -->
+							<!-- 											class="form-control" placeholder="Middle Name" tabindex="1" /> -->
+							<!-- 									</div> -->
+							<!-- 								</div> -->
+							<!-- 								<div class="col-xs-12 col-sm-4 col-md-4"> -->
+							<!-- 									<div class="form-group"> -->
+							<!-- 										<input type="text" name="last_name" id="last_name" -->
+							<!-- 											class="form-control " placeholder="Last Name" tabindex="2" /> -->
+							<!-- 									</div> -->
+							<!-- 								</div> -->
+							<!-- 							</div> -->
+
+							<div class="form-group"
+								th:class="${#fields.hasErrors('username')} ? 'form-group has-error' : 'form-group'">
+								<label class="col-sm-12 control-label">Username:</label> <input
+									type="text" name="username" id="username" class="form-control "
+									placeholder="Username" tabindex="3" th:field="*{username}" th:errorclass="has-error" /> <span
+									class="help-block" th:if="${#fields.hasErrors('username')}">
+									<ul>
+										<li th:each="err : ${#fields.errors('username')}"
+											th:text="${err}" />
+									</ul>
+								</span>
+							</div>
+
+							<div class="form-group"
+								th:class="${#fields.hasErrors('email')} ? 'form-group has-error' : 'form-group'">
+								<label class="col-sm-12 control-label">Email:</label> <input
+									type="email" name="email" id="email" class="form-control "
+									placeholder="Email Address" tabindex="4" th:field="*{email}" th:errorclass="has-error"/> <span
+									class="help-block" th:if="${#fields.hasErrors('email')}">
+									<ul>
+										<li th:each="err : ${#fields.errors('email')}"
+											th:text="${err}" />
+									</ul>
+								</span>
+							</div>
+
+							<div class="row">
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="form-group"
+										th:class="${#fields.hasErrors('password')} ? 'form-group has-error' : 'form-group'">
+										<label class="col-sm-12 control-label">Password:</label><input
+											type="password" name="password" id="password"
+											class="form-control " placeholder="Password" tabindex="5" th:field="*{password}" th:errorclass="has-error"/>
+										<span class="help-block"
+											th:if="${#fields.hasErrors('password')}">
+											<ul>
+												<li th:each="err : ${#fields.errors('password')}"
+													th:text="${err}" />
+											</ul>
+										</span>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="form-group"
+										th:class="${#fields.hasErrors('passwordRepeated')} ? 'form-group has-error' : 'form-group'">
+										<label class="col-sm-12 control-label">Password
+											Confirm:</label> <input type="password" name="passwordRepeated"
+											id="passwordRepeated" class="form-control "
+											placeholder="Confirm Password" tabindex="6" th:field="*{passwordRepeated}" th:errorclass="has-error"/> <span
+											class="help-block"
+											th:if="${#fields.hasErrors('passwordRepeated')}">
+											<ul>
+												<li th:each="err : ${#fields.errors('passwordRepeated')}"
+													th:text="${err}" />
+											</ul>
+										</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="form-group"
+										th:class="${#fields.hasErrors('role')} ? 'form-group has-error' : 'form-group'">
+										<label class="col-sm-12 control-label">Sign up as:</label> <select
+											class="form-control" name="role" id="role">
+											<option
+												th:value="${T(com.eventSystem.domain.Role).ORGANIZER}"
+												class="form-control">Event organizer</option>
+											<option th:value="${T(com.eventSystem.domain.Role).ATTENDEE}"
+												class="form-control">Event attendee</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="form-group"
+										th:class="${#fields.hasErrors('organization')} ? 'form-group has-error' : 'form-group'">
+										<label class="col-sm-12 control-label">Organization:</label> <select
+											class="form-control" name="organization" id="organization">
+											<option th:value="LEICESTER" class="form-control">
+												University of Leicester</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
+
+							<button type="submit" class="btn btn-success">Create
+								account</button>
+
+							<hr style="margin-top: 10px; margin-bottom: 10px;" />
+
+							<div class="panel-footer">
+								<div class="form-group">
+
+									<div style="font-size: 85%">
+										Already have an account ? <a href="#"
+											onClick="$('#loginbox').hide(); $('#signupbox').show()">
+											Login Here </a>
+									</div>
+
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+</body>
+
+</html>
+
